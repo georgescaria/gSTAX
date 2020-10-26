@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="3" name="Suite">
-  <test name="Test">
+<suite name="Suite">
+  <test name="TC_1">
+    <classes>
+      <class name="com.gSTAX.Tests.Amazon"/>
+    </classes>
+  </test> <!-- TC_1 -->
+  <test name="TC_3">
     <classes>
       <class name="com.gSTAX.Tests.Facebook"/>
     </classes>
-  </test> <!-- Test -->
+  </test> <!-- TC_3 -->
+  <test name="TC_5">
+    <classes>
+      <class name="com.gSTAX.Tests.Amazon"/>
+    </classes>
+  </test> <!-- TC_5 -->
 </suite> <!-- Suite -->
