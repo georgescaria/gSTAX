@@ -1,4 +1,5 @@
 package com.gSTAX.TestData;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,9 +10,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-
-
 
 public class Excel_Data {
 	 
@@ -142,8 +140,6 @@ public class Excel_Data {
 		        	return "The cells should be formatted as 'Text'";
 		        }
 		        
-		        System.out.println(cell.getCellType()+"\t"+cell.getStringCellValue());
-		               
 		        return cell.getStringCellValue();
 	        }
 	        else
