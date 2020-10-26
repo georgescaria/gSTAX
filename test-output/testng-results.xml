@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="36861" started-at="2020-10-26T12:42:36Z" finished-at="2020-10-26T12:43:13Z">
+  <suite name="Suite" duration-ms="40712" started-at="2020-10-26T14:59:09Z" finished-at="2020-10-26T14:59:50Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="36861" started-at="2020-10-26T12:42:36Z" finished-at="2020-10-26T12:43:13Z">
-      <class name="com.gSTAX.Utilities.CreateXML">
-        <test-method status="PASS" signature="runTestNGTest()[pri:0, instance:com.gSTAX.Utilities.CreateXML@3cb5cdba]" name="runTestNGTest" duration-ms="36831" started-at="2020-10-26T18:12:36Z" finished-at="2020-10-26T18:13:13Z">
+    <test name="Test" duration-ms="40712" started-at="2020-10-26T14:59:09Z" finished-at="2020-10-26T14:59:50Z">
+      <class name="com.gSTAXUtils.CreateXML">
+        <test-method status="PASS" signature="runTestNGTest()[pri:0, instance:com.gSTAXUtils.CreateXML@2752f6e2]" name="runTestNGTest" duration-ms="40685" started-at="2020-10-26T20:29:09Z" finished-at="2020-10-26T20:29:50Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runTestNGTest -->
-      </class> <!-- com.gSTAX.Utilities.CreateXML -->
+      </class> <!-- com.gSTAXUtils.CreateXML -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>

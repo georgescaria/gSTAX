@@ -47,7 +47,7 @@ public class CreateXML {
 	    		 
 	    		 
 	    		 className = Excel_Data.getData(i, "Class Name");
-	    		 myTest.setName(Excel_Data.getData(i, "TC_ID "+className));
+	    		 myTest.setName(Excel_Data.getData(i, "TC_ID"));
 	    		 myClasses.add(new XmlClass("com.gSTAX.Tests."+className));
 	    	     myTest.setXmlClasses(myClasses);  
 	    	     myTests.add(myTest);
