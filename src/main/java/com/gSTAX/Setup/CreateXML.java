@@ -1,8 +1,9 @@
-package com.gSTAXUtils;
+package com.gSTAX.Setup;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,11 +45,15 @@ public class CreateXML {
 	    	 {
 	    		 XmlTest myTest = new XmlTest(mySuite);
 	    		 List<XmlClass> myClasses = new ArrayList<XmlClass>();
+	    		 Map<String, String> testClassParameters = new HashMap<>();
 	    		 
+	    	     testClassParameters.put("TC_ID", Excel_Data.getData(i, "TC_ID"));
 	    		 
 	    		 className = Excel_Data.getData(i, "Class Name");
 	    		 myTest.setName(Excel_Data.getData(i, "TC_ID"));
+	    		 myClasses.add(new XmlClass("com.gSTAX.Setup.InitialSetup"));
 	    		 myClasses.add(new XmlClass("com.gSTAX.Tests."+className));
+	    		 myTest.setParameters(testClassParameters);
 	    	     myTest.setXmlClasses(myClasses);  
 	    	     myTests.add(myTest);
 	    	   
