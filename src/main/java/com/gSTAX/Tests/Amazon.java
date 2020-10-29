@@ -1,55 +1,23 @@
 package com.gSTAX.Tests;
 
-import java.io.IOException;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-
-import com.aventstack.extentreports.ExtentReports;
-import com.gSTAX.TestData.Excel_Data;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.testng.annotations.*;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+import com.gSTAX.Setup.InitialSetup;
 
 /**
  * Hello world!
  *
  */
-public class Amazon 
+public class Amazon extends InitialSetup 
 {
-	
-	public static WebDriver driver;
-    
-    
-	
 	@Test       
-    public  void test( ) throws Exception
+    public void test() 
     {
-        System.out.println( "Hello World!" );
-        int rowCount=Excel_Data.getNumberofRecords();
-        System.out.println(rowCount);
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("https://amazon.in");
+        driver.get("https://amazon.com");
+        Report.log(Status.PASS, "Text details");
+        Report.fail(MediaEntityBuilder.createScreenCaptureFromPath("img.png").build());
         String title = driver.getTitle();
-        System.out.println(title);      
-        driver.quit(); 
+        Report.log(Status.PASS, title) ;    
     }
-	
-	@BeforeTest  
-	public void beforeTest() {    
-	System.out.println("before test");  
-	}     
-	@AfterTest  
-	public void afterTest() {  
-	driver.quit();  
-	System.out.println("after test");  
-	}   
-    
-    
-    
-    
- 
 }
