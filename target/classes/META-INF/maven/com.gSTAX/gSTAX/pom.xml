@@ -4,7 +4,7 @@
 
   <groupId>com.gSTAX</groupId>
   <artifactId>gSTAX</artifactId>
-  <version>0.0.1</version>
+  <version>v0.0.1</version>
   <packaging>jar</packaging>
 
   <name>gSTAX</name>
@@ -13,6 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
 
   <dependencies>
   
