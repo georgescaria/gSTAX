@@ -33,7 +33,7 @@ public class CreateXML {
 	
 	     List<XmlTest> myTests = new ArrayList<XmlTest>(); 
 	     List<XmlSuite> mySuites = new ArrayList<XmlSuite>();
-	     //List<Class<? extends ITestNGListener>> listenerClasses = new ArrayList<Class<? extends ITestNGListener>>();
+	     List<Class<? extends ITestNGListener>> listenerClasses = new ArrayList<Class<? extends ITestNGListener>>();
 		 
 	     rowCount = Excel_Data.getNumberofRecords();
 	     executeCol = Excel_Data.getColumnIndex("Execute");
@@ -45,7 +45,7 @@ public class CreateXML {
 	    	 {
 	    		 XmlTest myTest = new XmlTest(mySuite);
 	    		 List<XmlClass> myClasses = new ArrayList<XmlClass>();
-	    		 Map<String, String> testClassParameters = new HashMap<>();
+	    		 Map<String, String> testClassParameters = new HashMap<String,String>();
 	    		 
 	    	     testClassParameters.put("TC_ID", Excel_Data.getData(i, "TC_ID"));
 	    		 
@@ -60,12 +60,12 @@ public class CreateXML {
 	    	 }
 	     }
 	     
-	    //listenerClasses.add(ListenerTest.class);
+	    listenerClasses.add(ListenerTest.class);
 	     mySuite.setTests(myTests); 
 	     mySuites.add(mySuite);   
 	     myTestNG.setXmlSuites(mySuites);
 	     mySuite.setFileName("testng.xml"); 
-	     //myTestNG.setListenerClasses(listenerClasses);
+	     myTestNG.setListenerClasses(listenerClasses);
 	     myTestNG.run();
 	     
 	     
