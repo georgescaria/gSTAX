@@ -1,28 +1,45 @@
 package com.gSTAX.Tests;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
-import org.testng.annotations.*;
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
-import com.gSTAX.Setup.InitialSetup;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
  * Hello world!
  *
  */
-public class Google extends InitialSetup
+public class Google 
 {
 	
+	public static WebDriver driver;
+    
+    
+	
 	@Test       
-    public void test() 
+    public  void test( )
     {
+        System.out.println( "Hello World!" );
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
         driver.get("https://google.com");
-        Report.log(Status.PASS, "Text details");
-        Report.fail(MediaEntityBuilder.createScreenCaptureFromPath("img.png").build());
         String title = driver.getTitle();
-        Report.log(Status.PASS, title) ;    
+        System.out.println(title);      
+        driver.quit(); 
     }
 	
+	@BeforeTest  
+	public void beforeTest() {    
+	System.out.println("before test");  
+	}     
+	@AfterTest  
+	public void afterTest() {  
+	driver.quit();  
+	System.out.println("after test");  
+	}   
     
     
     

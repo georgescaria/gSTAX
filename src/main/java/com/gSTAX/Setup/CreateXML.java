@@ -69,11 +69,11 @@ public class CreateXML {
 	     myTestNG.run();
 	     
 	     
-	     for(XmlSuite suite : mySuites) 
-	     {  
-	         createXmlFile(suite); 
-	     }   
-	     System.out.println("File generated successfully.");
+//	     for(XmlSuite suite : mySuites) 
+//	     {  
+//	         createXmlFile(suite); 
+//	     }   
+//	     System.out.println("File generated successfully.");
 	     
 	  
 	    }

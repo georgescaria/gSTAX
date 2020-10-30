@@ -1,10 +1,5 @@
 package com.gSTAX.Setup;
 
-import java.sql.Date;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
@@ -25,35 +20,34 @@ public class InitialSetup {
 	
 	public static ExtentReports extent = new ExtentReports();
 	public static ExtentTest Report;
-	public static ExtentSparkReporter spark = new ExtentSparkReporter("Test Results/TestSuite-"+getDateTime()+".html");
 	public static String TC_ID;
 	public static WebDriver driver;
 	
-	public static String getDateTime()
-	{
-		Calendar calendar = Calendar.getInstance();
-		Format format = new SimpleDateFormat("dd-mm-yyyy hh-ss");
-		String datetime = format.format(new Date(calendar.getTimeInMillis()));
-		return datetime; 
-	}
 
 	@Parameters({ "TC_ID" })
 	@BeforeTest
 	public static void InitialSetup(String TestCase_ID)
 	{
 		WebDriverManager.chromedriver().setup();
-		getDateTime();
+		
 	    driver = new ChromeDriver();
-		TC_ID = TestCase_ID;
+		TC_ID=TestCase_ID;
+		ExtentSparkReporter spark = new ExtentSparkReporter("Test Results/Spark.html");
 		extent.attachReporter(spark);
 		Report=extent.createTest(TC_ID);
+		
+		
+	
 	}
+	@Test
+	public void extentReportsDemo()
+	{
 	
-	
+	}
 	@AfterTest
 	public static void endTest()
 	{
-		driver.quit();
-		extent.flush();
+		
+	extent.flush();
 	}
 }
