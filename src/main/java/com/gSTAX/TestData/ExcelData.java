@@ -11,7 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class Excel_Data {
+public class ExcelData {
 	 
 	
 		static String filePath=System.getProperty("user.dir")+"\\src\\main\\resources\\TestData";
@@ -22,8 +22,10 @@ public class Excel_Data {
 	    static File file;
 	    static Workbook workbook = null;
 	    static Sheet sheet;
+	    static Row row;
 	    
-	    Excel_Data() throws IOException
+	    //Excel Initializations
+	    ExcelData() throws IOException
 		{
 		    try 
 		    {
@@ -47,21 +49,23 @@ public class Excel_Data {
 		    sheet = workbook.getSheetAt(0);
 		}
 	    
+	    
+	    //Returns number of records
 	    public static int getNumberofRecords() throws IOException
 	    {
-	    	Excel_Data excel= new Excel_Data();
-	    	//System.out.print(sheet.getLastRowNum()-sheet.getFirstRowNum());
+	    	ExcelData excel= new ExcelData();
 	    	return (sheet.getPhysicalNumberOfRows());
-	    	 
 	    }
 	    
-	    public static int getColumnIndex(String column) throws IOException
+	    //Returns index position of the column passed to this function
+	    
+	    public static int getColumnIndex(String columnName) throws IOException
 	    {
-	        Row row = sheet.getRow(0);
+	        row = sheet.getRow(0);
 	        int i,found = 0;
 	        for (i = 0; i < row.getLastCellNum(); i++) 
 	        {
-	        	String columnName=row.getCell(i).getStringCellValue();       
+	        	String column=row.getCell(i).getStringCellValue();       
 	        	if(column.equals(columnName))
 	        	{
 	        		found=1;
@@ -74,15 +78,17 @@ public class Excel_Data {
 	        	throw new Error("Column not found");
 	    }
 	    
-	    public static String getData(String testCaseID,String column) throws IOException{
+	    
+	    //Returns the string present in the passed cell
+	    public static String getData(String testCaseID,String columnName) throws IOException{
 	    	 
 		    int rowCount = getNumberofRecords();
-	        Row row = sheet.getRow(0);
+	        row = sheet.getRow(0);
 	        int i,j,found=0;
 	        
 	        for (i = 0; i < row.getLastCellNum(); i++) 
 	        {
-	        	String columnName = row.getCell(i).getStringCellValue();       
+	        	String column = row.getCell(i).getStringCellValue();       
 	        	if(column.equals(columnName))
 	        	{
 	        		found = 1;
@@ -103,21 +109,19 @@ public class Excel_Data {
 	        else
 	        	return returnData;
 	        
-	        
 	        cell = row.getCell(i);
 	        if(!cell.getCellType().toString().equals("STRING"))
 	        {
 	        	System.out.println("The cells should be formatted as 'Text'");
 	        	return "The cells should be formatted as 'Text'";
 	        }
-	        
 	        return cell.getStringCellValue();
 	    }  
 	    
-	    public static String getData(int index,String column) throws IOException{
-	    	 
-		    
-	        Row row = sheet.getRow(0);
+	  //Returns the string present in the passed cell
+	    public static String getData(int index,String column) throws IOException
+	    {
+	        row = sheet.getRow(0);
 	        int i,j,found=0;
 	        
 	        for (i = 0; i < row.getLastCellNum(); i++) 

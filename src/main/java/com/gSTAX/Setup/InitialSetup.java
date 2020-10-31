@@ -24,18 +24,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class InitialSetup {
 	
 	public static ExtentReports extent = new ExtentReports();
-	public static ExtentTest Report;
+	public static ExtentTest test;
 	public static ExtentSparkReporter spark = new ExtentSparkReporter("Test Results/TestSuite-"+getDateTime()+".html");
 	public static String TC_ID;
 	public static WebDriver driver;
 
-	public static String getDateTime()
-	{
-		Calendar calendar = Calendar.getInstance();
-		Format format = new SimpleDateFormat("dd-mm-yyyy hh-ss");
-		String datetime = format.format(new Date(calendar.getTimeInMillis()));
-		return datetime; 
-	}
 
 	@Parameters({ "TC_ID" })
 	@BeforeTest
@@ -45,7 +38,7 @@ public class InitialSetup {
 	    driver = new ChromeDriver();
 		TC_ID = TestCase_ID;
 		extent.attachReporter(spark);
-		Report=extent.createTest(TC_ID);
+		test=extent.createTest(TC_ID);
 	}
 
 
@@ -54,5 +47,14 @@ public class InitialSetup {
 	{
 		driver.quit();
 		extent.flush();
+	}
+	
+	
+	public static String getDateTime()
+	{
+		Calendar calendar = Calendar.getInstance();
+		Format format = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
+		String datetime = format.format(new Date(calendar.getTimeInMillis()));
+		return datetime; 
 	}
 } 

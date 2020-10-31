@@ -1,4 +1,5 @@
 package com.gSTAX.Setup;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.ss.formula.functions.T;
+
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
 import org.testng.annotations.Test;
@@ -15,11 +16,11 @@ import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
-import com.gSTAX.TestData.Excel_Data;
+import com.gSTAX.TestData.ExcelData;
 
 public class CreateXML {
 
-	static int rowCount,executeCol, classNameCol;
+	static int rowCount, executeCol, classNameCol;
 	static String className;
 	static TestNG myTestNG = new TestNG();
 	
@@ -35,22 +36,22 @@ public class CreateXML {
 	     List<XmlSuite> mySuites = new ArrayList<XmlSuite>();
 	     List<Class<? extends ITestNGListener>> listenerClasses = new ArrayList<Class<? extends ITestNGListener>>();
 		 
-	     rowCount = Excel_Data.getNumberofRecords();
-	     executeCol = Excel_Data.getColumnIndex("Execute");
-	     classNameCol = Excel_Data.getColumnIndex("Class Name");
+	     rowCount = ExcelData.getNumberofRecords();
+	     executeCol = ExcelData.getColumnIndex("Execute");
+	     classNameCol = ExcelData.getColumnIndex("Class Name");
 	     
 	     for(int i=1; i<rowCount-1; i++)
 	     {
-	    	 if(Excel_Data.getData(i, "Execute").equals("Y"))
+	    	 if(ExcelData.getData(i, "Execute").equals("Y"))
 	    	 {
 	    		 XmlTest myTest = new XmlTest(mySuite);
 	    		 List<XmlClass> myClasses = new ArrayList<XmlClass>();
 	    		 Map<String, String> testClassParameters = new HashMap<String,String>();
 	    		 
-	    	     testClassParameters.put("TC_ID", Excel_Data.getData(i, "TC_ID"));
+	    	     testClassParameters.put("TC_ID", ExcelData.getData(i, "TC_ID"));
 	    		 
-	    		 className = Excel_Data.getData(i, "Class Name");
-	    		 myTest.setName(Excel_Data.getData(i, "TC_ID"));
+	    		 className = ExcelData.getData(i, "Class Name");
+	    		 myTest.setName(ExcelData.getData(i, "TC_ID"));
 	    		 myClasses.add(new XmlClass("com.gSTAX.Setup.InitialSetup"));
 	    		 myClasses.add(new XmlClass("com.gSTAX.Tests."+className));
 	    		 myTest.setParameters(testClassParameters);
@@ -60,7 +61,7 @@ public class CreateXML {
 	    	 }
 	     }
 	     
-	    listenerClasses.add(ListenerTest.class);
+	     listenerClasses.add(ListenerTest.class);
 	     mySuite.setTests(myTests); 
 	     mySuites.add(mySuite);   
 	     myTestNG.setXmlSuites(mySuites);
