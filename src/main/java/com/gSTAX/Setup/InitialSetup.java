@@ -47,16 +47,11 @@ public class InitialSetup {
 		extent.attachReporter(spark);
 		Report=extent.createTest(TC_ID);
 	}
-	@Test
-	public void extentReportsDemo()
-	{
 
-	}
 
 	@AfterTest
 	public static void endTest()
 	{
-		extent.flush();
 		driver.quit();
 		extent.flush();
 	}
