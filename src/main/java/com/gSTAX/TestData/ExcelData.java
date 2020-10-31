@@ -13,19 +13,20 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelData {
 	 
-	
-		static String filePath=System.getProperty("user.dir")+"\\src\\main\\resources\\TestData";
+		static String filePath=System.getProperty("user.dir")+"\\Test Data";
 	    static String fileName;
-	    static FileInputStream inputStream;
-	    static String returnData="No data available";
-	    static Cell cell;
 	    static File file;
+	    static FileInputStream inputStream;
 	    static Workbook workbook = null;
 	    static Sheet sheet;
 	    static Row row;
+	    static Cell cell;
+	    static String returnData="No data available";
+	    
+	    
 	    
 	    //Excel Initializations
-	    ExcelData() throws IOException
+	    public ExcelData() throws IOException
 		{
 		    try 
 		    {
@@ -53,7 +54,7 @@ public class ExcelData {
 	    //Returns number of records
 	    public static int getNumberofRecords() throws IOException
 	    {
-	    	ExcelData excel= new ExcelData();
+	    	
 	    	return (sheet.getPhysicalNumberOfRows());
 	    }
 	    

@@ -27,7 +27,6 @@ public class CreateXML {
 	@Test
 	public void runTestNGTest() throws IOException
 	 {   
-	    
 		    
 		 XmlSuite mySuite = new XmlSuite(); 
 		 mySuite.setName("Suite"); 
@@ -36,6 +35,7 @@ public class CreateXML {
 	     List<XmlSuite> mySuites = new ArrayList<XmlSuite>();
 	     List<Class<? extends ITestNGListener>> listenerClasses = new ArrayList<Class<? extends ITestNGListener>>();
 		 
+	     ExcelData excel= new ExcelData();
 	     rowCount = ExcelData.getNumberofRecords();
 	     executeCol = ExcelData.getColumnIndex("Execute");
 	     classNameCol = ExcelData.getColumnIndex("Class Name");
@@ -49,6 +49,8 @@ public class CreateXML {
 	    		 Map<String, String> testClassParameters = new HashMap<String,String>();
 	    		 
 	    	     testClassParameters.put("TC_ID", ExcelData.getData(i, "TC_ID"));
+	    	     testClassParameters.put("URL", ExcelData.getData(i, "URL"));
+	    	     testClassParameters.put("Browser", ExcelData.getData(i, "Browser"));
 	    		 
 	    		 className = ExcelData.getData(i, "Class Name");
 	    		 myTest.setName(ExcelData.getData(i, "TC_ID"));
