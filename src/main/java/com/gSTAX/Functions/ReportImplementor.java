@@ -12,7 +12,7 @@ import com.gSTAX.Utilities.Report;
 
 public class ReportImplementor extends InitialSetup implements Report {
 
-	public void takeScreenshot() throws Exception
+	public static void takeScreenshot() throws Exception
 	{
 		TakesScreenshot screenshot =((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
@@ -21,7 +21,7 @@ public class ReportImplementor extends InitialSetup implements Report {
 		test.info("", MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
-	public  void takeScreenshot(String logMessage) throws Exception
+	public static void takeScreenshot(String logMessage) throws Exception
 	{
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
@@ -33,7 +33,7 @@ public class ReportImplementor extends InitialSetup implements Report {
 	}
 	
 	
-	public  void passWithScreenshot() throws Exception
+	public static void passWithScreenshot() throws Exception
 	{
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
@@ -43,7 +43,7 @@ public class ReportImplementor extends InitialSetup implements Report {
 		test.pass(MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
-	public  void passWithScreenshot(String logMessage) throws Exception
+	public static void passWithScreenshot(String logMessage) throws Exception
 	{
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
@@ -53,7 +53,7 @@ public class ReportImplementor extends InitialSetup implements Report {
 		test.pass(logMessage,MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
-	public  void pass(String logMessage) throws Exception
+	public static void pass(String logMessage) throws Exception
 	{
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
@@ -63,7 +63,7 @@ public class ReportImplementor extends InitialSetup implements Report {
 		test.pass(logMessage);
 	}
 
-	public  void failWithScreenshot() throws Exception
+	public static void failWithScreenshot() throws Exception
 	{
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
@@ -73,7 +73,7 @@ public class ReportImplementor extends InitialSetup implements Report {
 		test.fail(MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
-	public  void failWithScreenshot(String logMessage) throws Exception
+	public static void failWithScreenshot(String logMessage) throws Exception
 	{
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
@@ -83,7 +83,7 @@ public class ReportImplementor extends InitialSetup implements Report {
 		test.fail(logMessage,MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
-	public void fail(String logMessage) throws Exception
+	public static void fail(String logMessage) throws Exception
 	{
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
