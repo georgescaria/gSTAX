@@ -2,7 +2,7 @@ package com.gSTAX.Utilities;
 
 import com.gSTAX.Functions.ReportImplementor;
 
-public interface Report{
+public abstract class Report{
 
 	
 	

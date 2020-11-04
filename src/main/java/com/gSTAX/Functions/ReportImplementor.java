@@ -1,16 +1,47 @@
 package com.gSTAX.Functions;
 
 import java.io.File;
+import java.sql.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.gSTAX.Setup.InitialSetup;
 import com.gSTAX.Utilities.Report;
 
-public class ReportImplementor extends InitialSetup implements Report {
+public class ReportImplementor extends Report {
+	
+	public static ExtentReports extent = new ExtentReports();
+	public static ExtentTest test;
+	public static ExtentSparkReporter spark = new ExtentSparkReporter("Test Results/TestSuite-"+getDateTime()+".html");
+	public static String TC_ID, URL, Browser;
+	public static WebDriver driver;
+	
+	public ReportImplementor(String TC_ID, WebDriver driver)
+	{
+		ReportImplementor.TC_ID = TC_ID;
+		ReportImplementor.driver = driver;
+	}
+	
+	public void startReporting()
+	{
+		extent.attachReporter(spark);
+		test=extent.createTest(TC_ID);
+	}
+	
+	public void endReporting()
+	{
+		extent.flush();
+	}
 
 	public static void takeScreenshot() throws Exception
 	{
@@ -93,6 +124,12 @@ public class ReportImplementor extends InitialSetup implements Report {
 		test.fail(logMessage);
 	}
 	
-	
+	public static String getDateTime()
+	{
+		Calendar calendar = Calendar.getInstance();
+		Format format = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
+		String datetime = format.format(new Date(calendar.getTimeInMillis()));
+		return datetime; 
+	}
 
 }

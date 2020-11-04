@@ -16,16 +16,16 @@ import org.testng.annotations.Parameters;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.gSTAX.Functions.ReportImplementor;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class InitialSetup {
 	
-	public static ExtentReports extent = new ExtentReports();
-	public static ExtentTest test;
-	public static ExtentSparkReporter spark = new ExtentSparkReporter("Test Results/TestSuite-"+getDateTime()+".html");
+	
 	public static String TC_ID, URL, Browser;
 	public static WebDriver driver;
+	public static ReportImplementor reportFunctions;
 
 
 	@Parameters({ "TC_ID", "URL", "Browser" })
@@ -35,10 +35,9 @@ public class InitialSetup {
 		InitialSetup.TC_ID = TestCase_ID;
 		InitialSetup.URL = URL;
 		InitialSetup.Browser = Browser;
-		
 		openBrowser();
-		extent.attachReporter(spark);
-		test=extent.createTest(TC_ID);
+		reportFunctions = new ReportImplementor(TC_ID,driver);
+		reportFunctions.startReporting();
 	}
 
 
@@ -46,17 +45,11 @@ public class InitialSetup {
 	public void endTest()
 	{
 		driver.quit();
-		extent.flush();
+		reportFunctions.endReporting();
 	}
 	
 	
-	public static String getDateTime()
-	{
-		Calendar calendar = Calendar.getInstance();
-		Format format = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
-		String datetime = format.format(new Date(calendar.getTimeInMillis()));
-		return datetime; 
-	}
+	
 	
 	void openBrowser()
 	{
