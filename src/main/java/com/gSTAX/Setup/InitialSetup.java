@@ -53,7 +53,7 @@ public class InitialSetup {
 	
 	void openBrowser()
 	{
-		switch(Browser)
+		switch(Browser.toString())
 		{
 			case "Chrome":
 				WebDriverManager.chromedriver().setup();
