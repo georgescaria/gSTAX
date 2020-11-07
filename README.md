@@ -47,8 +47,8 @@ public class Website extends InitialSetup
    | TC_1  | Y     | Amazon    | https://amazon.com |  Chrome  |
    | TC_2  | N     | Google    | https://google.com |  Edge    |
    
-   The Test Cases that have a corresponding Execute column value 'Y' will only be run.
-   For the above sample Testdata, only the class Amazon will run(create class Amazon in your project - com.gSTAX.Tests.Amazon). The website https://amazon.com will open up in 	  Chrome browser. 
+   The Test Cases that have a corresponding Execute column value ***'Y'*** will only be run.
+   For the above sample Testdata, only the class Amazon will run(create class Amazon.class in your project - com.gSTAX.Tests.Amazon). The website https://amazon.com will open 	  up in Chrome browser. 
    The following browsers are supported: 
    	1. Chrome
 	2. Firefox
@@ -56,11 +56,16 @@ public class Website extends InitialSetup
 	4. Opera
    
 4. Right click on the TestNG.xml file in your project and Run as RestNG Suite. And there you go!
+
    The test run report will be generated and saved in the folder ***Test Results*** in your project root folder.
    
    
 ### Reporting
 
+To use the Reporting functions, import the below to your Test class file.
+```java
+import com.gSTAX.Utilities.Report;
+```
 The below reporting actions can be performed using the ***Report*** keyword.
 
 1. Informational
