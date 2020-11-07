@@ -1,6 +1,7 @@
 package com.gSTAX.Functions;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,6 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.gSTAX.Setup.InitialSetup;
 import com.gSTAX.Utilities.Report;
 
 public class ReportImplementor extends Report {
@@ -25,105 +25,104 @@ public class ReportImplementor extends Report {
 	public static ExtentSparkReporter spark = new ExtentSparkReporter("Test Results/TestSuite-"+getDateTime()+".html");
 	public static String TC_ID, URL, Browser;
 	public static WebDriver driver;
+	public static File sourceFile, destinationFile;
 	
+	//Sets TC_ID and driver
 	public ReportImplementor(String TC_ID, WebDriver driver)
 	{
 		ReportImplementor.TC_ID = TC_ID;
 		ReportImplementor.driver = driver;
 	}
 	
+	//Start Extent Reporting
 	public void startReporting()
 	{
 		extent.attachReporter(spark);
 		test=extent.createTest(TC_ID);
 	}
 	
+	//Ends Extent Reporting
 	public void endReporting()
 	{
 		extent.flush();
 	}
 
+	//Take screenshot-INFO only
 	public static void takeScreenshot() throws Exception
 	{
-		TakesScreenshot screenshot =((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile=new File("Test Results//Snapshots//"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
+		saveScreenshot();
 		test.info("", MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
+	//Take screenshot and add a log message - INFO only
 	public static void takeScreenshot(String logMessage) throws Exception
 	{
-		TakesScreenshot screenshot = ((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
-		
-		test.pass(MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
+		saveScreenshot(logMessage);
 		test.info(logMessage, MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
-	
+	//Pass step with screenshot
 	public static void passWithScreenshot() throws Exception
 	{
-		TakesScreenshot screenshot = ((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile = new File("Test Results//Snapshots//"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
-		
+		saveScreenshot();
 		test.pass(MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
+	//Pass step with screenshot and a log message
 	public static void passWithScreenshot(String logMessage) throws Exception
 	{
-		TakesScreenshot screenshot = ((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
-		
+		saveScreenshot(logMessage);
 		test.pass(logMessage,MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
+	//Pass step with log message
 	public static void pass(String logMessage) throws Exception
 	{
-		TakesScreenshot screenshot = ((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
-		
+		saveScreenshot(logMessage);
 		test.pass(logMessage);
 	}
 
+	//Fail step with screenshot
 	public static void failWithScreenshot() throws Exception
 	{
-		TakesScreenshot screenshot = ((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile = new File("Test Results//Snapshots//"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
-		
+		saveScreenshot();
 		test.fail(MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
+	//Fail step with screenshot and log message
 	public static void failWithScreenshot(String logMessage) throws Exception
 	{
-		TakesScreenshot screenshot = ((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
-		
+		saveScreenshot(logMessage);
 		test.fail(logMessage,MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
+	//Fail step with log message
 	public static void fail(String logMessage) throws Exception
 	{
-		TakesScreenshot screenshot = ((TakesScreenshot)driver);
-		File sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
-		File destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
-		FileUtils.copyFile(sourceFile, destinationFile);
-		
+		saveScreenshot(logMessage);
 		test.fail(logMessage);
 	}
 	
+	
+	//Common method to take screenshot and save in local with log message
+	public static void saveScreenshot(String logMessage) throws IOException
+	{
+		TakesScreenshot screenshot = ((TakesScreenshot)driver);
+		sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
+		destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
+		FileUtils.copyFile(sourceFile, destinationFile);
+	}
+	
+	//Common method to take screenshot and save in local
+	public static void saveScreenshot() throws IOException
+	{
+		TakesScreenshot screenshot = ((TakesScreenshot)driver);
+		sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
+		destinationFile = new File("Test Results//Snapshots//"+getDateTime()+".png");
+		FileUtils.copyFile(sourceFile, destinationFile);
+	}
+	
+	//Returns Datetime in the format dd-MM-yyyy hh-mm-ss
 	public static String getDateTime()
 	{
 		Calendar calendar = Calendar.getInstance();

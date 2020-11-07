@@ -3,8 +3,8 @@ package com.gSTAX.TestData;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -123,7 +123,7 @@ public class ExcelData {
 	    public static String getData(int index,String column) throws IOException
 	    {
 	        row = sheet.getRow(0);
-	        int i,j,found=0;
+	        int i,found=0;
 	        
 	        for (i = 0; i < row.getLastCellNum(); i++) 
 	        {
