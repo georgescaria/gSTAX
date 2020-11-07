@@ -4,7 +4,11 @@ import com.gSTAX.Functions.ReportImplementor;
 
 public abstract class Report{
 
-	
+	//Log event - INFO only
+	public static void logEvent(String logMessage) throws Exception
+	{
+		ReportImplementor.logEvent(logMessage);
+	}
 	//Take screenshot-INFO only
 	public static void takeScreenshot() throws Exception {
 		ReportImplementor.takeScreenshot();
@@ -42,7 +46,7 @@ public abstract class Report{
 	
 	//Fail step with screenshot and log message
 	public static void failWithScreenshot(String logMessage) throws Exception {
-		failWithScreenshot(logMessage);
+		ReportImplementor.failWithScreenshot(logMessage);
 	}
 	
 	

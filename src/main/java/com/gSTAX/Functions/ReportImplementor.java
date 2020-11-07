@@ -46,7 +46,13 @@ public class ReportImplementor extends Report {
 	{
 		extent.flush();
 	}
-
+	
+	//Log event
+	public static void logEvent(String logMessage) throws Exception
+	{
+		test.info(logMessage);
+	}
+		
 	//Take screenshot-INFO only
 	public static void takeScreenshot() throws Exception
 	{
@@ -78,7 +84,6 @@ public class ReportImplementor extends Report {
 	//Pass step with log message
 	public static void pass(String logMessage) throws Exception
 	{
-		saveScreenshot(logMessage);
 		test.pass(logMessage);
 	}
 
@@ -99,7 +104,6 @@ public class ReportImplementor extends Report {
 	//Fail step with log message
 	public static void fail(String logMessage) throws Exception
 	{
-		saveScreenshot(logMessage);
 		test.fail(logMessage);
 	}
 	
