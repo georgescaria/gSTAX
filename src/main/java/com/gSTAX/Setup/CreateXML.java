@@ -63,7 +63,7 @@ public class CreateXML {
 	    	 }
 	     }
 	     
-	     listenerClasses.add(ListenerTest.class);
+	     listenerClasses.add(TestListener.class);
 	     mySuite.setTests(myTests); 
 	     mySuites.add(mySuite);   
 	     myTestNG.setXmlSuites(mySuites);
