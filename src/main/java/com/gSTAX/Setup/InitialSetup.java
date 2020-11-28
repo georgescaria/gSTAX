@@ -15,8 +15,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class InitialSetup {
 	
 	
-	public static String TC_ID, URL, Browser;
-	public static WebDriver driver;
+	public String TC_ID, URL, Browser;
+	public WebDriver driver;
 	public static ReportImplementor reportFunctions;
 
 
@@ -24,9 +24,9 @@ public class InitialSetup {
 	@BeforeTest
 	public void Setup(String TestCase_ID, String URL, String Browser)
 	{
-		InitialSetup.TC_ID = TestCase_ID;
-		InitialSetup.URL = URL;
-		InitialSetup.Browser = Browser;
+		this.TC_ID = TestCase_ID;
+		this.URL = URL;
+		this.Browser = Browser;
 		openBrowser();
 		reportFunctions = new ReportImplementor(TC_ID,driver);
 		reportFunctions.startReporting();

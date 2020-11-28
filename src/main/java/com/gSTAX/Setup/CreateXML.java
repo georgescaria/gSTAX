@@ -29,7 +29,10 @@ public class CreateXML {
 	 {   
 		    
 		 XmlSuite mySuite = new XmlSuite(); 
-		 mySuite.setName("Suite"); 
+		 mySuite.setName("Suite");
+		 
+		 
+		 //mySuite.setParallel(XmlSuite.ParallelMode.TESTS);
 	
 	     List<XmlTest> myTests = new ArrayList<XmlTest>(); 
 	     List<XmlSuite> mySuites = new ArrayList<XmlSuite>();
@@ -40,7 +43,7 @@ public class CreateXML {
 	     executeCol = ExcelData.getColumnIndex("Execute");
 	     classNameCol = ExcelData.getColumnIndex("Class Name");
 	     
-	     for(int i=1; i<rowCount-1; i++)
+	     for(int i=1; i<rowCount; i++)
 	     {
 	    	 if(ExcelData.getData(i, "Execute").equals("Y"))
 	    	 {
@@ -69,14 +72,15 @@ public class CreateXML {
 	     myTestNG.setXmlSuites(mySuites);
 	     mySuite.setFileName("testng.xml"); 
 	     myTestNG.setListenerClasses(listenerClasses);
+	     //mySuite.setThreadCount(15);
 	     myTestNG.run();
 	     
 	     
-//	     for(XmlSuite suite : mySuites) 
-//	     {  
-//	         createXmlFile(suite); 
-//	     }   
-//	     System.out.println("File generated successfully.");
+	     for(XmlSuite suite : mySuites) 
+	     {  
+	         createXmlFile(suite); 
+	     }   
+	     System.out.println("File generated successfully.");
 	     
 	  
 	    }
