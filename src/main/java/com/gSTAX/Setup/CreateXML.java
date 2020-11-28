@@ -32,7 +32,7 @@ public class CreateXML {
 		 mySuite.setName("Suite");
 		 
 		 
-		 //mySuite.setParallel(XmlSuite.ParallelMode.TESTS);
+		 mySuite.setParallel(XmlSuite.ParallelMode.TESTS);
 	
 	     List<XmlTest> myTests = new ArrayList<XmlTest>(); 
 	     List<XmlSuite> mySuites = new ArrayList<XmlSuite>();
@@ -72,15 +72,15 @@ public class CreateXML {
 	     myTestNG.setXmlSuites(mySuites);
 	     mySuite.setFileName("testng.xml"); 
 	     myTestNG.setListenerClasses(listenerClasses);
-	     //mySuite.setThreadCount(15);
+	     mySuite.setThreadCount(5);
 	     myTestNG.run();
 	     
 	     
-	     for(XmlSuite suite : mySuites) 
-	     {  
-	         createXmlFile(suite); 
-	     }   
-	     System.out.println("File generated successfully.");
+//	     for(XmlSuite suite : mySuites) 
+//	     {  
+//	         createXmlFile(suite); 
+//	     }   
+//	     System.out.println("File generated successfully.");
 	     
 	  
 	    }
