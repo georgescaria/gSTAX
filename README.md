@@ -1,6 +1,6 @@
 # gSTAX  [![](https://jitpack.io/v/georgescaria/gSTAX.svg)](https://jitpack.io/#georgescaria/gSTAX)
 
-A simplified Data-driven software automation testing framework along with Library architecture implemented using Selenium and TestNG.
+A simplified Data-driven software automation testing framework along with Library architecture with multithreaded test execution implemented using Selenium and TestNG.
 For reference, use the sample project - [gSTAX-Example](https://github.com/georgescaria/gSTAX-Example)
 
 ### Setting up
