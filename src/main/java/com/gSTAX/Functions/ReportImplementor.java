@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -23,22 +24,27 @@ public class ReportImplementor extends Report {
 	public static ExtentReports extent = new ExtentReports();
 	public static ExtentTest test;
 	public static ExtentSparkReporter spark = new ExtentSparkReporter("Test Results/TestSuite-"+getDateTime()+".html");
-	public static String TC_ID, URL, Browser;
-	public static WebDriver driver;
+	public String TC_ID, URL, Browser;
+	public WebDriver driver;
 	public static File sourceFile, destinationFile;
+	public static HashMap<String, ExtentTest> testCaseMap = new HashMap<String, ExtentTest>();
+	public static HashMap<String, WebDriver> driverMap = new HashMap<String, WebDriver>();
 	
 	//Sets TC_ID and driver
 	public ReportImplementor(String TC_ID, WebDriver driver)
 	{
-		ReportImplementor.TC_ID = TC_ID;
-		ReportImplementor.driver = driver;
+		this.TC_ID = TC_ID;
+		this.driver = driver;
+		driverMap.put(TC_ID, driver);
 	}
 	
 	//Start Extent Reporting
-	public void startReporting()
+	public synchronized void startReporting()
 	{
 		extent.attachReporter(spark);
 		test=extent.createTest(TC_ID);
+		testCaseMap.put(TC_ID, test);
+		
 	}
 	
 	//Ends Extent Reporting
@@ -48,82 +54,97 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Log event
-	public static void logEvent(String logMessage) throws Exception
+	public synchronized static void logEvent(String TC_ID, String logMessage) throws Exception
 	{
-		test.info(logMessage);
+		test = testCaseMap.get(TC_ID);
+		test.info("aaaaa");
 	}
 		
 	//Take screenshot-INFO only
-	public static void takeScreenshot() throws Exception
+	public synchronized static void takeScreenshot(String TC_ID) throws Exception
 	{
-		saveScreenshot();
+		saveScreenshot(TC_ID);
+		test = testCaseMap.get(TC_ID);
 		test.info("", MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
 	//Take screenshot and add a log message - INFO only
-	public static void takeScreenshot(String logMessage) throws Exception
+	public synchronized static void takeScreenshot(String TC_ID, String logMessage) throws Exception
 	{
-		saveScreenshot(logMessage);
+		saveScreenshot(TC_ID, logMessage);
+		test = testCaseMap.get(TC_ID);
 		test.info(logMessage, MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
 	//Pass step with screenshot
-	public static void passWithScreenshot() throws Exception
+	public synchronized static void passWithScreenshot(String TC_ID) throws Exception
 	{
-		saveScreenshot();
+		saveScreenshot(TC_ID);
+		test = testCaseMap.get(TC_ID);
 		test.pass(MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
 	//Pass step with screenshot and a log message
-	public static void passWithScreenshot(String logMessage) throws Exception
+	public synchronized static void passWithScreenshot(String TC_ID, String logMessage) throws Exception
 	{
-		saveScreenshot(logMessage);
+		saveScreenshot(TC_ID, logMessage);
+		test = testCaseMap.get(TC_ID);
 		test.pass(logMessage,MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
 	//Pass step with log message
-	public static void pass(String logMessage) throws Exception
+	public synchronized static void pass(String TC_ID, String logMessage) throws Exception
 	{
+		test = testCaseMap.get(TC_ID);
 		test.pass(logMessage);
 	}
 
 	//Fail step with screenshot
-	public static void failWithScreenshot() throws Exception
+	public synchronized static void failWithScreenshot(String TC_ID) throws Exception
 	{
-		saveScreenshot();
+		test = testCaseMap.get(TC_ID);
+		saveScreenshot(TC_ID);
 		test.fail(MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
 	//Fail step with screenshot and log message
-	public static void failWithScreenshot(String logMessage) throws Exception
+	public synchronized static void failWithScreenshot(String TC_ID, String logMessage) throws Exception
 	{
-		saveScreenshot(logMessage);
+		test = testCaseMap.get(TC_ID);
+		saveScreenshot(TC_ID, logMessage);
 		test.fail(logMessage,MediaEntityBuilder.createScreenCaptureFromPath(destinationFile.getAbsolutePath()).build());
 	}
 	
 	//Fail step with log message
-	public static void fail(String logMessage) throws Exception
+	public synchronized static void fail(String TC_ID, String logMessage) throws Exception
 	{
+		test = testCaseMap.get(TC_ID);
 		test.fail(logMessage);
 	}
 	
 	
 	//Common method to take screenshot and save in local with log message
-	public static void saveScreenshot(String logMessage) throws IOException
+	public synchronized static void saveScreenshot(String TC_ID, String logMessage) throws IOException
 	{
+		WebDriver driver = driverMap.get(TC_ID);
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
 		destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
 		FileUtils.copyFile(sourceFile, destinationFile);
+		driver = null;
+		
 	}
 	
 	//Common method to take screenshot and save in local
-	public static void saveScreenshot() throws IOException
+	public synchronized static void saveScreenshot(String TC_ID) throws IOException
 	{
+		WebDriver driver = driverMap.get(TC_ID);
 		TakesScreenshot screenshot = ((TakesScreenshot)driver);
+		
 		sourceFile=screenshot.getScreenshotAs(OutputType.FILE);
 		destinationFile = new File("Test Results//Snapshots//"+getDateTime()+".png");
 		FileUtils.copyFile(sourceFile, destinationFile);
+		driver = null;
 	}
 	
 	//Returns Datetime in the format dd-MM-yyyy hh-mm-ss

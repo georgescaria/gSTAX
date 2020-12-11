@@ -87,6 +87,8 @@ public class ExcelData {
 	        row = sheet.getRow(0);
 	        int i,j,found=0;
 	        
+	        
+	        // Find column number with column name
 	        for (i = 0; i < row.getLastCellNum(); i++) 
 	        {
 	        	String column = row.getCell(i).getStringCellValue();       
@@ -97,6 +99,7 @@ public class ExcelData {
 	        	}
 	        }
 	
+	        // Find row number using TC_ID
 	        if(found == 1)
 	        {
 		        for (j = 0; j < rowCount+1; j++) 
@@ -111,6 +114,7 @@ public class ExcelData {
 	        	return returnData;
 	        
 	        cell = row.getCell(i);
+	        
 	        if(!cell.getCellType().toString().equals("STRING"))
 	        {
 	        	System.out.println("The cells should be formatted as 'Text'");
@@ -139,11 +143,17 @@ public class ExcelData {
 	        {
 	        	row = sheet.getRow(index);
 	        	cell=row.getCell(i);
-		        if(!cell.getCellType().toString().equals("STRING"))
-		        {
-		        	System.out.println("The cells should be formatted as 'Text'");
-		        	return "The cells should be formatted as 'Text'";
-		        }
+		        try {
+					if(!cell.getCellType().toString().equals("STRING"))
+					{
+						System.out.println("The cells should be formatted as 'Text'");
+						return "The cells should be formatted as 'Text'";
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return "Data not available";
+				}
 		        
 		        return cell.getStringCellValue();
 	        }
