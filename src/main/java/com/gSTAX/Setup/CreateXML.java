@@ -42,6 +42,7 @@ public class CreateXML {
 	     rowCount = ExcelData.getNumberofRecords();
 	     executeCol = ExcelData.getColumnIndex("Execute");
 	     classNameCol = ExcelData.getColumnIndex("Class Name");
+	     System.out.println(executeCol+","+rowCount);
 	     
 	     for(int i=1; i<rowCount; i++)
 	     {
@@ -72,7 +73,7 @@ public class CreateXML {
 	     myTestNG.setXmlSuites(mySuites);
 	     mySuite.setFileName("testng.xml"); 
 	     myTestNG.setListenerClasses(listenerClasses);
-	     mySuite.setThreadCount(5);
+	     mySuite.setThreadCount(4);
 	     myTestNG.run();
 	     
 	     
