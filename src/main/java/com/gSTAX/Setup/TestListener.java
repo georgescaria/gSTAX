@@ -29,7 +29,8 @@ public class TestListener implements ITestListener
     @Override		
     public void onTestFailure(ITestResult Result) 					
     {		
-    System.out.println("Testcase failed is :"+Result.getName());					
+    System.out.println("Testcase failed is :"+Result.getName());
+    System.out.println("Testcase failed due to\n:"+Result.getThrowable());
     }		
 
 		

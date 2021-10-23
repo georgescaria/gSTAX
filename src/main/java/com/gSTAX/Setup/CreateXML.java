@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -25,11 +26,12 @@ public class CreateXML {
 	static TestNG myTestNG = new TestNG();
 	
 	@Test
-	public void runTestNGTest() throws IOException
+	@Parameters("parallel-threads")
+	public void runTestNGTest(int parallelThreads) throws IOException
 	 {   
 		    
 		 XmlSuite mySuite = new XmlSuite(); 
-		 mySuite.setName("Suite");
+		 mySuite.setName("Suite"); 
 		 
 		 
 		 mySuite.setParallel(XmlSuite.ParallelMode.TESTS);
@@ -73,7 +75,7 @@ public class CreateXML {
 	     myTestNG.setXmlSuites(mySuites);
 	     mySuite.setFileName("testng.xml"); 
 	     myTestNG.setListenerClasses(listenerClasses);
-	     mySuite.setThreadCount(4);
+	     mySuite.setThreadCount(parallelThreads);
 	     myTestNG.run();
 	     
 	     

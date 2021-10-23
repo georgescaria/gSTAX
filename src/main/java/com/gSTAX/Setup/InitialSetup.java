@@ -20,7 +20,7 @@ public class InitialSetup {
 	public static ReportImplementor reportFunctions;
 
 
-	@Parameters({ "TC_ID", "URL", "Browser" })
+	@Parameters({ "TC_ID", "URL", "Browser" }) 
 	@BeforeTest
 	public void Setup(String TestCase_ID, String URL, String Browser)
 	{
@@ -40,7 +40,7 @@ public class InitialSetup {
 		reportFunctions.endReporting();
 	}
 	
-	void openBrowser()
+	void openBrowser() 
 	{
 		switch(Browser)
 		{

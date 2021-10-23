@@ -36,7 +36,7 @@ public class ReportImplementor extends Report {
 		this.TC_ID = TC_ID;
 		this.driver = driver;
 		driverMap.put(TC_ID, driver);
-	}
+	} 
 	
 	//Start Extent Reporting
 	public synchronized void startReporting()
@@ -54,14 +54,14 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Log event
-	public synchronized static void logEvent(String TC_ID, String logMessage) throws Exception
+	public synchronized static void logEvent(String TC_ID, String logMessage) 
 	{
 		test = testCaseMap.get(TC_ID);
-		test.info("aaaaa");
+		test.info(logMessage);
 	}
 		
 	//Take screenshot-INFO only
-	public synchronized static void takeScreenshot(String TC_ID) throws Exception
+	public synchronized static void takeScreenshot(String TC_ID) throws IOException
 	{
 		saveScreenshot(TC_ID);
 		test = testCaseMap.get(TC_ID);
@@ -69,7 +69,7 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Take screenshot and add a log message - INFO only
-	public synchronized static void takeScreenshot(String TC_ID, String logMessage) throws Exception
+	public synchronized static void takeScreenshot(String TC_ID, String logMessage) throws IOException
 	{
 		saveScreenshot(TC_ID, logMessage);
 		test = testCaseMap.get(TC_ID);
@@ -77,7 +77,7 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Pass step with screenshot
-	public synchronized static void passWithScreenshot(String TC_ID) throws Exception
+	public synchronized static void passWithScreenshot(String TC_ID) throws IOException
 	{
 		saveScreenshot(TC_ID);
 		test = testCaseMap.get(TC_ID);
@@ -85,7 +85,7 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Pass step with screenshot and a log message
-	public synchronized static void passWithScreenshot(String TC_ID, String logMessage) throws Exception
+	public synchronized static void passWithScreenshot(String TC_ID, String logMessage) throws IOException
 	{
 		saveScreenshot(TC_ID, logMessage);
 		test = testCaseMap.get(TC_ID);
@@ -93,14 +93,14 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Pass step with log message
-	public synchronized static void pass(String TC_ID, String logMessage) throws Exception
+	public synchronized static void pass(String TC_ID, String logMessage) throws IOException
 	{
 		test = testCaseMap.get(TC_ID);
 		test.pass(logMessage);
 	}
 
 	//Fail step with screenshot
-	public synchronized static void failWithScreenshot(String TC_ID) throws Exception
+	public synchronized static void failWithScreenshot(String TC_ID) throws IOException
 	{
 		test = testCaseMap.get(TC_ID);
 		saveScreenshot(TC_ID);
@@ -108,7 +108,7 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Fail step with screenshot and log message
-	public synchronized static void failWithScreenshot(String TC_ID, String logMessage) throws Exception
+	public synchronized static void failWithScreenshot(String TC_ID, String logMessage) throws IOException 
 	{
 		test = testCaseMap.get(TC_ID);
 		saveScreenshot(TC_ID, logMessage);
@@ -116,7 +116,7 @@ public class ReportImplementor extends Report {
 	}
 	
 	//Fail step with log message
-	public synchronized static void fail(String TC_ID, String logMessage) throws Exception
+	public synchronized static void fail(String TC_ID, String logMessage) throws IOException
 	{
 		test = testCaseMap.get(TC_ID);
 		test.fail(logMessage);
@@ -132,7 +132,6 @@ public class ReportImplementor extends Report {
 		destinationFile = new File("Test Results//Snapshots//"+logMessage+"_"+getDateTime()+".png");
 		FileUtils.copyFile(sourceFile, destinationFile);
 		driver = null;
-		
 	}
 	
 	//Common method to take screenshot and save in local
